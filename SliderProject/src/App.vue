@@ -1,31 +1,34 @@
-<script setup>
-// This starter template is using Vue 3 <script setup> SFCs
-// Check out https://vuejs.org/api/sfc-script-setup.html#script-setup
-import HelloWorld from "./components/HelloWorld.vue";
+<script>
+import { ref } from "vue";
+import TheSlider from "./components/Slider/TheSlider.vue";
+export default {
+  components: {
+    TheSlider,
+  },
+
+  setup() {
+    const myage = ref(50);
+    const OnAgeValueChanged = (value) => {
+      myage.value = value;
+    };
+
+    return {
+      myage,
+      OnAgeValueChanged,
+    };
+  },
+};
 </script>
 
 <template>
-  <div>
-    <a href="https://vitejs.dev" target="_blank">
-      <img src="/vite.svg" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://vuejs.org/" target="_blank">
-      <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
-    </a>
-  </div>
-  <HelloWorld msg="Vite + Vue 3" />
+  <h1>Hello Age Slider</h1>
+  <div>Sam's Age:{{ myage }}</div>
+  <TheSlider
+    :targetvalue="myage"
+    :minimum="0"
+    :maximum="100"
+    @age_value_changed="OnAgeValueChanged"
+  />
 </template>
 
-<style scoped>
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.vue:hover {
-  filter: drop-shadow(0 0 2em #42b883aa);
-}
-</style>
+<style scoped></style>
